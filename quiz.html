@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Mandalorianer Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('background.jpg');
+            background-size: cover;
+            color: white;
+            text-align: center;
+            padding: 30px;
+        }
+        .question {
+            margin-bottom: 40px;
+        }
+        button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+        .correct {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .wrong {
+            background-color: #f44336;
+            color: white;
+        }
+        #reward {
+            display: none;
+            margin-top: 50px;
+        }
+        img {
+            max-width: 80%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Mandalorianer Quiz</h1>
+
+    <div id="quiz">
+        <div class="question" data-correct="Ravendeath">
+            <p>1. Wie heißt Yannicks Mandalorianer?</p>
+            <button>Beskarboy</button>
+            <button>Ravendeath</button>
+            <button>ClanGhost</button>
+            <button>Deathhunter</button>
+        </div>
+
+        <div class="question" data-correct="die thiercon">
+            <p>2. Was war unsere erste Convention?</p>
+            <button>ComicCon Stuttgart</button>
+            <button>die thiercon</button>
+            <button>Star Wars Celebration</button>
+            <button>Gamescom</button>
+        </div>
+
+        <div class="question" data-correct="Schulterschmerzen wegen dem Jetpack.">
+            <p>3. Was ist das blödeste Problem beim Mandalorianer-Cosplay von Yannick?</p>
+            <button>Die Schuhe drücken</button>
+            <button>Zu warm unter dem Helm</button>
+            <button>Schulterschmerzen wegen dem Jetpack.</button>
+            <button>Der Gürtel verrutscht</button>
+        </div>
+
+        <div class="question" data-correct="primär Hellgrau, sekundär Dunkel grau, und rote Akzente">
+            <p>4. Welche Farbe hat Yannicks Mandalorianer-Rüstung?</p>
+            <button>Komplett schwarz</button>
+            <button>Silber und Blau</button>
+            <button>primär Hellgrau, sekundär Dunkel grau, und rote Akzente</button>
+            <button>Grün und Gold</button>
+        </div>
+
+        <div class="question" data-correct="3 mal">
+            <p>5. Wie oft sind wir den Berg wegen Visitenkarten auf der German Film Con runtergelaufen?</p>
+            <button>2 mal</button>
+            <button>5 mal</button>
+            <button>3 mal</button>
+            <button>1 mal</button>
+        </div>
+    </div>
+
+    <div id="reward">
+        <h2>Du hast alles richtig beantwortet!</h2>
+        <img src="reward.jpg" alt="Belohnung">
+    </div>
+
+    <script>
+        const questions = document.querySelectorAll('.question');
+        questions.forEach(q => {
+            const buttons = q.querySelectorAll('button');
+            buttons.forEach(b => {
+                b.addEventListener('click', () => {
+                    if (b.textContent === q.dataset.correct) {
+                        b.classList.add('correct');
+                        q.setAttribute('data-answered', 'true');
+                    } else {
+                        b.classList.add('wrong');
+                    }
+                    buttons.forEach(btn => btn.disabled = true);
+                    checkAllCorrect();
+                });
+            });
+        });
+
+        function checkAllCorrect() {
+            const allAnswered = Array.from(questions).every(q => q.getAttribute('data-answered') === 'true');
+            if (allAnswered) {
+                document.getElementById('reward').style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
